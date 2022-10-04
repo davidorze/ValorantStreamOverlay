@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 using RestSharp;
 using Newtonsoft.Json;
@@ -13,38 +14,19 @@ namespace ValorantStreamOverlay
 {
     class Authentication
     {
-        public static void GetAuthorization(CookieContainer jar)
+
+        public static string Authenticate(string user, string pass)
         {
-            string url = "https://auth.riotgames.com/api/v1/authorization";
-            RestClient client = new RestClient(url)
-            {
-                CookieContainer = jar
-            };
+            string url = "https://api.henrikdev.xyz/valorant/v1/account/";
+            string url_add = url + user + "/" + pass;
+            RestClient client = new RestClient(url_add);
 
-            RestRequest request = new RestRequest(Method.POST);
-            string body = "{\"client_id\":\"play-valorant-web-prod\",\"nonce\":\"1\",\"redirect_uri\":\"https://playvalorant.com/opt_in" + "\",\"response_type\":\"token id_token\",\"scope\":\"account openid\"}";
-            request.AddJsonBody(body);
-            client.Execute(request);
-        }
-
-        public static string Authenticate(CookieContainer cookie, string user, string pass)
-        {
-            string url = "https://auth.riotgames.com/api/v1/authorization";
-            RestClient client = new RestClient(url)
-            {
-                CookieContainer = cookie
-            };
-
-            RestRequest request = new RestRequest(Method.PUT);
-            var auth = new {
-                type = "auth",
-                username = user,
-                password = pass
-            };
-            string body = JsonConvert.SerializeObject(auth);
-            request.AddJsonBody(body);
-
-            return client.Execute(request).Content;
+            RestRequest request = new RestRequest(Method.GET);
+            //var response = JObject.Parse(client.Execute(request).Content);
+            //Debug.WriteLine(response.ToString());
+            //Debug.WriteLine("GETTING PUUID");
+            
+            return client.Execute(request).Content.ToString();
         }
     }
 }

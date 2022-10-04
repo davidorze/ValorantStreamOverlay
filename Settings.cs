@@ -25,7 +25,7 @@ namespace ValorantStreamOverlay
         {
             // Save Overlay Settings
             Properties.Settings.Default.username = usernameTextBox.Text;
-            Properties.Settings.Default.password = passwordTextBox.Text;
+            Properties.Settings.Default.tag = passwordTextBox.Text;
             Properties.Settings.Default.region = regionDrop.SelectedIndex;
             Properties.Settings.Default.skin = skinDrop.SelectedIndex;
             Properties.Settings.Default.refresh = refreshDrop.SelectedIndex;
@@ -55,7 +55,7 @@ namespace ValorantStreamOverlay
         {
             //Overlay Loading
             usernameTextBox.Text = Properties.Settings.Default.username;
-            passwordTextBox.Text = Properties.Settings.Default.password;
+            passwordTextBox.Text = Properties.Settings.Default.tag;
             regionDrop.SelectedIndex = Properties.Settings.Default.region;
             skinDrop.SelectedIndex = Properties.Settings.Default.skin;
             refreshDrop.SelectedIndex = Properties.Settings.Default.refresh;

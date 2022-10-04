@@ -18,8 +18,8 @@ namespace ValorantStreamOverlay
         public RankDetection()
         {
             //Start Update
-            GetCloudRankJSON().GetAwaiter().GetResult();
-            int rankNum = UPDATECompRankAsync().GetAwaiter().GetResult();
+            //GetCloudRankJSON().GetAwaiter().GetResult();
+            int rankNum = UPDATECompApiAsync().GetAwaiter().GetResult();
             RankParser(rankNum);
             
         }
@@ -34,17 +34,13 @@ namespace ValorantStreamOverlay
         {
             try
             {
-                IRestClient compRank = new RestClient(new Uri(
-                    $"https://pd.{LogicHandler.region}.a.pvp.net/mmr/v1/players/{LogicHandler.UserID}/competitiveupdates?startIndex=0&endIndex=20"));
-                IRestRequest compRequest = new RestRequest(Method.GET);
-                compRequest.AddHeader("Authorization", $"Bearer {LogicHandler.AccessToken}");
-                compRequest.AddHeader("X-Riot-Entitlements-JWT", LogicHandler.EntitlementToken);
-                compRequest.AddHeader("X-Riot-ClientPlatform",
-                    "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
+            string url = "https://api.henrikdev.xyz/valorant/v1/by-puuid/mmr-history/";
+            string url_add = url + Properties.Settings.Default.region + "/" + UserID;
 
-                IRestResponse rankedResp = compRank.Get(compRequest);
+            RestClient client = new RestClient(url_add);
+            RestRequest request = new RestRequest(Method.GET);
 
-                Trace.WriteLine(rankedResp.Content);
+            return client.Execute(request).IsSuccessful ? JsonConvert.DeserializeObject<JObject>(client.Execute(request).Content) : null;
                 if (rankedResp.IsSuccessful)
                 {
                     dynamic jsonconvert = JsonConvert.DeserializeObject<JObject>(rankedResp.Content);
@@ -53,10 +49,10 @@ namespace ValorantStreamOverlay
 
                     foreach (var game in matches)
                     {
-                        if (game["RankedRatingAfterUpdate"] != 0)
+                        if (game["ranking_in_tier"] != 0)
                         {
-                            currentRP = game["RankedRatingAfterUpdate"];
-                            return game["TierAfterUpdate"];
+                            currentRP = game["ranking_in_tier"];
+                            return game["currenttier"];
                         }
                     }
 
@@ -78,6 +74,7 @@ namespace ValorantStreamOverlay
             IRestClient cloudRankJson = new RestClient(new Uri("https://502.wtf/ValorrankInfo.json"));
             IRestRequest rankRequest = new RestRequest(Method.GET);
             IRestResponse rankResp = cloudRankJson.Get(rankRequest);
+            Debug.WriteLine(rankResp);
             rankJson = (rankResp.IsSuccessful) ? rankJson = rankResp.Content : rankJson = string.Empty;
         }
         void RankParser(int rankNumber)

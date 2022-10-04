@@ -24,7 +24,7 @@ namespace ValorantStreamOverlay
         public static string EntitlementToken { get; set; }
         public static string UserID { get; set; }
 
-        public static string username, password, region;
+        public static string username, tag, region;
         public static int refreshTimeinSeconds;
         public Timer relogTimer, pointTimer;
 
@@ -48,12 +48,12 @@ namespace ValorantStreamOverlay
          void ReadSettings()
         {
 
-            if (string.IsNullOrEmpty(Properties.Settings.Default.password) || string.IsNullOrEmpty(Properties.Settings.Default.username))
-                MessageBox.Show("Welcome, You have to set your username and password in the settings menu");
+            if (string.IsNullOrEmpty(Properties.Settings.Default.tag) || string.IsNullOrEmpty(Properties.Settings.Default.username))
+                MessageBox.Show("Welcome, you have to set your username and tag in the settings menu");
             else
             {
                 username = Properties.Settings.Default.username;
-                password = Properties.Settings.Default.password;
+                tag = Properties.Settings.Default.tag;
                 region = new SettingsParser().ReadRegion(Properties.Settings.Default.region).GetAwaiter().GetResult();
                 refreshTimeinSeconds = new SettingsParser().ReadDelay(Properties.Settings.Default.region).GetAwaiter().GetResult();
                 new SettingsParser().ReadSkin(Properties.Settings.Default.skin).GetAwaiter();
@@ -77,52 +77,19 @@ namespace ValorantStreamOverlay
             try
             {
                 CookieContainer cookie = new CookieContainer();
-                Authentication.GetAuthorization(cookie);
-
-                var authJson = JsonConvert.DeserializeObject(Authentication.Authenticate(cookie, username, password));
+                var authJson = JsonConvert.DeserializeObject(Authentication.Authenticate(username, tag));
                 JToken authObj = JObject.FromObject(authJson);
 
-                if (authObj.ToString().Contains("error"))
+                if (!authObj["status"].ToString().Contains("200"))
                 {
                     // error time lmfao
-                    MessageBox.Show("Login is Incorrect, please fix login in settings.");
+                    MessageBox.Show("Nick and/or Tag is incorrect, please fix info in settings.");
                 }
                 else
                 {
-                    string authURL = authObj["response"]["parameters"]["uri"].Value<string>();
-                    var access_tokenVar = Regex.Match(authURL, @"access_token=(.+?)&scope=").Groups[1].Value;
-                    AccessToken = $"{access_tokenVar}";
-
-                    RestClient client = new RestClient(new Uri("https://entitlements.auth.riotgames.com/api/token/v1"));
-                    RestRequest request = new RestRequest(Method.POST);
-
-                    request.AddHeader("Authorization", $"Bearer {AccessToken}");
-                    request.AddJsonBody("{}");
-
-                    string response = client.Execute(request).Content;
-                    var entitlement_token = JsonConvert.DeserializeObject(response);
-                    JToken entitlement_tokenObj = JObject.FromObject(entitlement_token);
-
-                    EntitlementToken = entitlement_tokenObj["entitlements_token"].Value<string>();
-
-
-                    RestClient userid_client = new RestClient(new Uri("https://auth.riotgames.com/userinfo"));
-                    RestRequest userid_request = new RestRequest(Method.POST);
-
-                    userid_request.AddHeader("Authorization", $"Bearer {AccessToken}");
-                    userid_request.AddJsonBody("{}");
-
-                    string userid_response = userid_client.Execute(userid_request).Content;
-                    dynamic userid = JsonConvert.DeserializeObject(userid_response);
-                    JToken useridObj = JObject.FromObject(userid);
-
-                    //Console.WriteLine(userid_response);
-
-                    UserID = useridObj["sub"].Value<string>();
+                    UserID = authObj["data"]["puuid"].ToString();
                 }
 
-
-                
 
             }
             catch (Exception e)
@@ -137,41 +104,40 @@ namespace ValorantStreamOverlay
         {
             Trace.Write("UPDATING");
             dynamic response = GetCompApiAsync().GetAwaiter().GetResult();
-            if (response != null)
+            Debug.WriteLine(response.StatusCode);
+            if (response.StatusCode == 200)
             {
                 int[] points = new int[3];
-                dynamic matches = response["Matches"];
+                dynamic matches = response["data"];
                 int count = 0, i  = 0;
                 foreach (var game in matches)
                 {
 
-                    if (game["TierAfterUpdate"] == 0)
+                    if (game["currenttier"] == 0)
                     {
                         // riot said fuck off to this one i guess LMAO
                     }
-                    else if (game["TierAfterUpdate"] > game["TierBeforeUpdate"]) // Promoted meaning, that afterupdate is more than beforeupdate
-                    {
-                        // player promoted
-                        int before = game["RankedRatingBeforeUpdate"];
-                        int after = game["RankedRatingAfterUpdate"];
-                        int differ = (after - before) + 100; 
-                        points[i++] = differ;
-                        count++;
-                    }
-                    else if (game["TierAfterUpdate"] < game["TierBeforeUpdate"])
-                    {
-                        // player demoted
-                        int before = game["RankedRatingBeforeUpdate"];
-                        int after = game["RankedRatingAfterUpdate"];
-                        int differ = (after - before) - 100; 
-                        points[i++] = differ;
-                        count++;
-                    }
+                    // else if (game["currenttier"] > matches[i+1]["currenttier"]) // Promoted meaning, that afterupdate is more than beforeupdate
+                    // {
+                    //     player promoted
+                    //         int before = matches[i+1]["ranking_in_tier"];
+                    //         int after = game["ranking_in_tier"];
+                    //         int differ = game["elo"] - matches[i+1]["elo"]; 
+                    //     points[i++] = game["mmr_change_to_last_game"];
+                    //     count++;
+                    // }
+                    // else if (game["currenttier"] < matches[i+1]["currenttier"])
+                    // {
+                    //     player demoted
+                    //     int before = game["RankedRatingBeforeUpdate"];
+                    //     int after = game["RankedRatingAfterUpdate"];
+                    //     int differ = (after - before) - 100; 
+                    //     points[i++] = differ;
+                    //     count++;
+                    // }
                     else
                     {
-                        int before = game["RankedRatingBeforeUpdate"];
-                        int after = game["RankedRatingAfterUpdate"];
-                        points[i++] = after - before;
+                        points[i++] = game["mmr_change_to_last_game"];
                         count++;
                     }
 
@@ -185,21 +151,15 @@ namespace ValorantStreamOverlay
         }
 
 
-        private async Task<JObject> GetCompApiAsync()
+        async Task<JObject> GetCompApiAsync()
         {
-            
-            IRestClient compClient = new RestClient(new Uri($"https://pd.{region}.a.pvp.net/mmr/v1/players/{UserID}/competitiveupdates?startIndex=0&endIndex=20"));
-            RestRequest compRequest = new RestRequest(Method.GET);
+            string url = "https://api.henrikdev.xyz/valorant/v1/by-puuid/mmr-history/";
+            string url_add = url + Properties.Settings.Default.region + "/" + UserID;
 
-            compRequest.AddHeader("Authorization", $"Bearer {AccessToken}");
-            compRequest.AddHeader("X-Riot-Entitlements-JWT", EntitlementToken);
-            compRequest.AddHeader("X-Riot-ClientPlatform",
-                "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
+            RestClient client = new RestClient(url_add);
+            RestRequest request = new RestRequest(Method.GET);
 
-
-            IRestResponse rankedResp = compClient.Get(compRequest);
-
-            return rankedResp.IsSuccessful ? JsonConvert.DeserializeObject<JObject>(rankedResp.Content) : null;
+            return client.Execute(request).IsSuccessful ? JsonConvert.DeserializeObject<JObject>(client.Execute(request).Content) : null;
         }
 
 

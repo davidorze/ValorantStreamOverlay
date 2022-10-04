@@ -1,0 +1,162 @@
+{
+  "status": 200,
+  "data": {
+    "puuid": "0490ffcb-eb05-535a-9493-c5a2c007d6b6",
+    "region": "na",
+    "account_level": 29,
+    "name": "FaçoDasTripasS2",
+    "tag": "BRJA",
+    "card": {
+      "small": "https://media.valorant-api.com/playercards/546c9535-4671-e7cf-d5f9-1b90e3e2d7e4/smallart.png",
+      "large": "https://media.valorant-api.com/playercards/546c9535-4671-e7cf-d5f9-1b90e3e2d7e4/largeart.png",
+      "wide": "https://media.valorant-api.com/playercards/546c9535-4671-e7cf-d5f9-1b90e3e2d7e4/wideart.png",
+      "id": "546c9535-4671-e7cf-d5f9-1b90e3e2d7e4"
+    },
+    "last_update": "40 minutes ago",
+    "last_update_raw": 1664825726
+  }
+}
+
+
+{
+  "status": 200,
+  "name": "FaçoDasTripasS2",
+  "tag": "BRJA",
+  "data": [
+    {
+      "currenttier": 18,
+      "currenttierpatched": "Diamond 1",
+      "images": {
+        "small": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/smallicon.png",
+        "large": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/largeicon.png",
+        "triangle_down": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/ranktriangledownicon.png",
+        "triangle_up": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/ranktriangleupicon.png"
+      },
+      "ranking_in_tier": 24,
+      "mmr_change_to_last_game": -15,
+      "elo": 1524,
+      "date": "Monday, October 3, 2022 2:14 AM",
+      "date_raw": 1664756055
+    },
+    {
+      "currenttier": 18,
+      "currenttierpatched": "Diamond 1",
+      "images": {
+        "small": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/smallicon.png",
+        "large": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/largeicon.png",
+        "triangle_down": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/ranktriangledownicon.png",
+        "triangle_up": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/ranktriangleupicon.png"
+      },
+      "ranking_in_tier": 39,
+      "mmr_change_to_last_game": 23,
+      "elo": 1539,
+      "date": "Monday, October 3, 2022 1:37 AM",
+      "date_raw": 1664753832
+    },
+    {
+      "currenttier": 18,
+      "currenttierpatched": "Diamond 1",
+      "images": {
+        "small": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/smallicon.png",
+        "large": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/largeicon.png",
+        "triangle_down": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/ranktriangledownicon.png",
+        "triangle_up": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/ranktriangleupicon.png"
+      },
+      "ranking_in_tier": 16,
+      "mmr_change_to_last_game": 16,
+      "elo": 1516,
+      "date": "Saturday, October 1, 2022 6:42 AM",
+      "date_raw": 1664599363
+    },
+    {
+      "currenttier": 18,
+      "currenttierpatched": "Diamond 1",
+      "images": {
+        "small": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/smallicon.png",
+        "large": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/largeicon.png",
+        "triangle_down": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/ranktriangledownicon.png",
+        "triangle_up": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/ranktriangleupicon.png"
+      },
+      "ranking_in_tier": 0,
+      "mmr_change_to_last_game": -15,
+      "elo": 1500,
+      "date": "Saturday, October 1, 2022 3:42 AM",
+      "date_raw": 1664588532
+    },
+    {
+      "currenttier": 18,
+      "currenttierpatched": "Diamond 1",
+      "images": {
+        "small": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/smallicon.png",
+        "large": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/largeicon.png",
+        "triangle_down": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/ranktriangledownicon.png",
+        "triangle_up": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/18/ranktriangleupicon.png"
+      },
+      "ranking_in_tier": 10,
+      "mmr_change_to_last_game": 19,
+      "elo": 1510,
+      "date": "Saturday, October 1, 2022 3:00 AM",
+      "date_raw": 1664586056
+    },
+    {
+      "currenttier": 17,
+      "currenttierpatched": "Platinum 3",
+      "images": {
+        "small": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/smallicon.png",
+        "large": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/largeicon.png",
+        "triangle_down": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/ranktriangledownicon.png",
+        "triangle_up": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/ranktriangleupicon.png"
+      },
+      "ranking_in_tier": 85,
+      "mmr_change_to_last_game": 22,
+      "elo": 1485,
+      "date": "Thursday, September 29, 2022 5:48 AM",
+      "date_raw": 1664423293
+    },
+    {
+      "currenttier": 17,
+      "currenttierpatched": "Platinum 3",
+      "images": {
+        "small": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/smallicon.png",
+        "large": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/largeicon.png",
+        "triangle_down": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/ranktriangledownicon.png",
+        "triangle_up": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/ranktriangleupicon.png"
+      },
+      "ranking_in_tier": 63,
+      "mmr_change_to_last_game": -14,
+      "elo": 1463,
+      "date": "Thursday, September 29, 2022 5:07 AM",
+      "date_raw": 1664420847
+    },
+    {
+      "currenttier": 17,
+      "currenttierpatched": "Platinum 3",
+      "images": {
+        "small": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/smallicon.png",
+        "large": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/largeicon.png",
+        "triangle_down": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/ranktriangledownicon.png",
+        "triangle_up": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/ranktriangleupicon.png"
+      },
+      "ranking_in_tier": 77,
+      "mmr_change_to_last_game": 20,
+      "elo": 1477,
+      "date": "Thursday, September 29, 2022 4:18 AM",
+      "date_raw": 1664417939
+    },
+    {
+      "currenttier": 17,
+      "currenttierpatched": "Platinum 3",
+      "images": {
+        "small": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/smallicon.png",
+        "large": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/largeicon.png",
+        "triangle_down": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/ranktriangledownicon.png",
+        "triangle_up": "https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/17/ranktriangleupicon.png"
+      },
+      "ranking_in_tier": 57,
+      "mmr_change_to_last_game": 25,
+      "elo": 1457,
+      "date": "Thursday, September 29, 2022 3:45 AM",
+      "date_raw": 1664415934
+    }
+  ]
+}

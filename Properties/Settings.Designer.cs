@@ -38,12 +38,12 @@ namespace ValorantStreamOverlay.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string password {
+        public string tag {
             get {
-                return ((string)(this["password"]));
+                return ((string)(this["tag"]));
             }
             set {
-                this["password"] = value;
+                this["tag"] = value;
             }
         }
         
